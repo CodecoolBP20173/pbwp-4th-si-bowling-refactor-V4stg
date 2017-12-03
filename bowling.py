@@ -2,6 +2,7 @@ def score(game):
     result = 0
     frame = 1
     in_first_half = True
+    last = 0
     for i in range(len(game)):
         if game[i] == '/':
             result += 10 - last
@@ -17,12 +18,11 @@ def score(game):
                 else:
                     result += get_value(game[i+2])
         last = get_value(game[i])
-        if not in_first_half:
-            frame += 1
         if in_first_half == True:
             in_first_half = False
         else:
             in_first_half = True
+            frame += 1
         if game[i].upper() == 'X':
             in_first_half = True
             frame += 1
@@ -31,9 +31,7 @@ def score(game):
 def get_value(char):
     if char in '123456789':
         return int(char)
-    elif char.upper() == 'X':
-        return 10
-    elif char == '/':
+    elif char.upper() == 'X' or char == '/':
         return 10
     elif char == '-':
         return 0
